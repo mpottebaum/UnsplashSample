@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { View, SafeAreaView, Text, TextInput, TouchableOpacity, FlatList, StyleSheet } from 'react-native'
+import { View, SafeAreaView, Text, TextInput, TouchableOpacity, FlatList, ActivityIndicator, StyleSheet } from 'react-native'
 import { API_ROOT, API_KEY } from '../constants/index'
 import SearchResult from './SearchResult'
 import SearchNav from './SearchNav'
@@ -30,16 +30,16 @@ class Search extends React.Component {
 
     renderResults = () => {
         return this.props.loader ?
-            <Text>Loading</Text>
+            <ActivityIndicator size="large" color="#EBEEFF" />
             :
             this.props.results.total === 0 ?
-            <Text style={styles.noResultsText}>No Results</Text>
-            :
-            <FlatList
-                data={this.props.results.results}
-                renderItem={({ item }) => <SearchResult result={item} />}
-                keyExtractor={result => result.id}
-            />
+                <Text style={styles.noResultsText}>No Results</Text>
+                :
+                <FlatList
+                    data={this.props.results.results}
+                    renderItem={({ item }) => <SearchResult result={item} />}
+                    keyExtractor={result => result.id}
+                />
     }
 
     render() {
