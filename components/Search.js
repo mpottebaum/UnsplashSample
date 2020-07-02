@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { View, SafeAreaView, Text, TextInput, TouchableOpacity, FlatList, StyleSheet } from 'react-native'
 import { API_ROOT, API_KEY } from '../constants/index'
 import SearchResult from './SearchResult'
+import SearchNav from './SearchNav'
 
 class Search extends React.Component {
     constructor() {
@@ -20,6 +21,7 @@ class Search extends React.Component {
 
     handleSearchPress = () => {
         this.props.startAddResults()
+        this.props.addQuery(this.state.query)
         const url = API_ROOT + `/search/users/?page=1&query=${this.state.query}&client_id=${API_KEY}`
         fetch(url)
         .then(resp => resp.json())
@@ -54,6 +56,7 @@ class Search extends React.Component {
                     <Text style={styles.noResultsText}>Search Unsplash Users To See Their Photos</Text>
                 }
             </SafeAreaView>
+            <SearchNav />
         </View>
     }
 }
@@ -67,8 +70,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        startAddResults: () => dispatch({type: 'START_ADD_RESULTS'}),
-        addResults: results => dispatch({type: 'ADD_RESULTS', results: results})
+        startAddResults: () => dispatch({type: 'START_ADD_RESULTS', page: 1}),
+        addResults: results => dispatch({type: 'ADD_RESULTS', results: results}),
+        addQuery: query => dispatch({type: 'ADD_QUERY', query: query})
     }
 }
 
@@ -79,11 +83,11 @@ const styles = StyleSheet.create({
         flex: 1
     },
     form: {
-        flex: 1,
+        flex: 2,
         backgroundColor: '#EBEEFF',
     },
     results: {
-        flex: 5
+        flex: 6
     },
     input: {
         margin: 10,
