@@ -13,7 +13,7 @@ import rootReducer from './reducers/index'
 import { NativeRouter as Router, Route } from 'react-router-native'
 import StatusBarBackground from './components/StatusBarBackground'
 import Search from './components/Search'
-import User from './components/User'
+import UserContainer from './containers/UserContainer'
 
 import {
   Header,
@@ -30,7 +30,7 @@ const App = () => {
     <Router>
       <StatusBarBackground />
       <Route exact path='/' component={Search} />
-      <Route path='/user' component={User} />
+      <Route path='/user' component={UserContainer} />
     </Router>
   </Provider>
 };
