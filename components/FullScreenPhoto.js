@@ -1,13 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { View, Image, TouchableOpacity, Text, Dimensions } from 'react-native'
+import { View, Image, TouchableOpacity, Text, Dimensions, StyleSheet } from 'react-native'
 
 const FullScreenPhoto = props => {
     return <View style={{flex: 1}}>
-        <TouchableOpacity onPress={props.deselectPhoto}>
-            <Text>Back</Text>
+        <TouchableOpacity style={styles.button} onPress={props.deselectPhoto}>
+            <Text style={styles.text}>Back</Text>
         </TouchableOpacity>
-        <Image style={{width: Dimensions.get('screen').width, height: '100%'}} source={{uri: props.fullPhotoUrl}} />
+        <Image style={styles.image} source={{uri: props.fullPhotoUrl}} />
     </View>
 }
 
@@ -24,3 +24,17 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(FullScreenPhoto)
+
+const styles = StyleSheet.create({
+    button: {
+        padding: 10
+    },
+    text: {
+        textAlign: 'center',
+        fontSize: 15
+    },
+    image: {
+        width: Dimensions.get('screen').width,
+        height: '100%'
+    }
+})

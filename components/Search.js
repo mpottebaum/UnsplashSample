@@ -32,6 +32,9 @@ class Search extends React.Component {
         return this.props.loader ?
             <Text>Loading</Text>
             :
+            this.props.results.total === 0 ?
+            <Text style={styles.noResultsText}>No Results</Text>
+            :
             <FlatList
                 data={this.props.results.results}
                 renderItem={({ item }) => <SearchResult result={item} />}
@@ -84,19 +87,18 @@ const styles = StyleSheet.create({
     },
     form: {
         flex: 2,
-        backgroundColor: '#EBEEFF',
+        backgroundColor: '#EBEEFF'
     },
     results: {
         flex: 6
     },
     input: {
         margin: 10,
-        // marginLeft: 10,
-        // marginRight: 10,
+        marginTop: 30,
         textAlign: 'center',
         backgroundColor: 'white',
         fontSize: 20,
-        padding: 10
+        padding: 10,
     },
     button: {
         marginLeft: 30,
@@ -111,6 +113,7 @@ const styles = StyleSheet.create({
     },
     noResultsText: {
         textAlign: 'center',
-        fontSize: 20
+        fontSize: 20,
+        marginTop: 10
     }
 })
