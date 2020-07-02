@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { View, Text, TextInput, TouchableOpacity, FlatList } from 'react-native'
-import { API_ROOT } from '../constants/index'
+import { API_ROOT, API_KEY } from '../constants/index'
 import SearchResult from './SearchResult'
 
 class Search extends React.Component {
@@ -20,7 +20,7 @@ class Search extends React.Component {
 
     handleSearchPress = () => {
         this.props.startAddResults()
-        const url = API_ROOT + `/search/users/?page=1&query=${this.state.query}&client_id=aa2f3c3be8125f1fc86e3007153420c4e446c19b7b0c6d80a6257b281c9a0dc5`
+        const url = API_ROOT + `/search/users/?page=1&query=${this.state.query}&client_id=${API_KEY}`
         fetch(url)
         .then(resp => resp.json())
         .then(results => this.props.addResults(results))

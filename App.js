@@ -25,7 +25,7 @@ import {
 
 const store = createStore(rootReducer)
 
-const App: () => React$Node = () => {
+const App = () => {
   return <Provider store={store}>
     <Router>
       <StatusBarBackground />
