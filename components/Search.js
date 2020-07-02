@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { View, Text, TextInput, TouchableOpacity, FlatList } from 'react-native'
 import { API_ROOT } from '../constants/index'
+import SearchResult from './SearchResult'
 
 class Search extends React.Component {
     constructor() {
@@ -25,8 +26,18 @@ class Search extends React.Component {
         .then(results => this.props.addResults(results))
     }
 
+    renderResults = () => {
+        return this.props.loader ?
+            <Text>Loading</Text>
+            :
+            <FlatList
+                data={this.props.results.results}
+                renderItem={({ item }) => <SearchResult result={item} />}
+                keyExtractor={result => result.id}
+            />
+    }
+
     render() {
-        console.log(this.props.results)
         return <View>
             <View>
                 <Text>Search Unsplash Users</Text>
@@ -36,7 +47,12 @@ class Search extends React.Component {
                 </TouchableOpacity>
             </View>
             <View>
-                
+                {
+                    this.props.results ?
+                    this.renderResults()
+                    :
+                    <Text>Search Unsplash Users To See Their Photos</Text>
+                }
             </View>
         </View>
     }
