@@ -11,6 +11,7 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import rootReducer from './reducers/index'
 import { NativeRouter as Router, Route } from 'react-router-native'
+import StatusBarBackground from './components/StatusBarBackground'
 import Search from './components/Search'
 import User from './components/User'
 
@@ -27,6 +28,7 @@ const store = createStore(rootReducer)
 const App: () => React$Node = () => {
   return <Provider store={store}>
     <Router>
+      <StatusBarBackground />
       <Route exact path='/' component={Search} />
       <Route path='/user' component={User} />
     </Router>
