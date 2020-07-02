@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { View, Text } from 'react-native'
+import { View, Text, Image, FlatList } from 'react-native'
 import { API_ROOT, API_KEY } from '../constants/index'
 
 class User extends React.Component {
@@ -13,9 +13,21 @@ class User extends React.Component {
     }
 
     render() {
-        console.log(this.props.selectedUserPhotos)
         return <View>
-            <Text>User</Text>
+            <Image style={{height: 80, width: 80}} source={{uri: this.props.selectedUser.profile_image.large}} />
+            <Text>{this.props.selectedUser.username}</Text>
+            {
+                this.props.loader ?
+                <Text>Loading</Text>
+                :
+                <FlatList
+                    data={this.props.selectedUserPhotos}
+                    renderItem={({ item }) => <Image style={{height: 200, width: 200}} source={{uri: item.urls.regular}} />}
+                    keyExtractor={photo => photo.id}
+                    horizontal={false}
+                    numColumns={2}
+                />
+            }
         </View>
     }
 }
