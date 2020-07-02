@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { View, Text, TextInput, TouchableOpacity, FlatList } from 'react-native'
+import { View, SafeAreaView, Text, TextInput, TouchableOpacity, FlatList, StyleSheet } from 'react-native'
 import { API_ROOT, API_KEY } from '../constants/index'
 import SearchResult from './SearchResult'
 
@@ -38,22 +38,22 @@ class Search extends React.Component {
     }
 
     render() {
-        return <View>
-            <View>
-                <Text>Search Unsplash Users</Text>
-                <TextInput onChange={this.handleChange} value={this.state.query} />
-                <TouchableOpacity onPress={this.handleSearchPress}>
-                    <Text>Search</Text>
+        return <View style={styles.container}>
+            <View style={styles.form}>
+                {/* <Text>Search Unsplash Users</Text> */}
+                <TextInput style={styles.input} onChange={this.handleChange} value={this.state.query} placeholder='Search Unsplash Users'/>
+                <TouchableOpacity style={styles.button} onPress={this.handleSearchPress}>
+                    <Text style={styles.buttonText}>Search</Text>
                 </TouchableOpacity>
             </View>
-            <View>
+            <SafeAreaView style={styles.results}>
                 {
                     this.props.results ?
                     this.renderResults()
                     :
-                    <Text>Search Unsplash Users To See Their Photos</Text>
+                    <Text style={styles.noResultsText}>Search Unsplash Users To See Their Photos</Text>
                 }
-            </View>
+            </SafeAreaView>
         </View>
     }
 }
@@ -73,3 +73,40 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search)
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1
+    },
+    form: {
+        flex: 1,
+        backgroundColor: '#EBEEFF',
+    },
+    results: {
+        flex: 5
+    },
+    input: {
+        margin: 10,
+        // marginLeft: 10,
+        // marginRight: 10,
+        textAlign: 'center',
+        backgroundColor: 'white',
+        fontSize: 20,
+        padding: 10
+    },
+    button: {
+        marginLeft: 30,
+        marginRight: 30,
+        padding: 15,
+        backgroundColor: '#8A0705',
+    },
+    buttonText: {
+        textAlign: 'center',
+        fontSize: 20,
+        color: 'white'
+    },
+    noResultsText: {
+        textAlign: 'center',
+        fontSize: 20
+    }
+})

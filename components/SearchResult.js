@@ -13,10 +13,10 @@ class SearchResult extends React.Component {
     
     render() {
         return <TouchableOpacity onPress={this.handlePress} style={styles.container}>
-            <Image style={{height: 80, width: 80}} source={{uri: this.props.result.profile_image.large}} />
+            <Image style={styles.image} source={{uri: this.props.result.profile_image.large}} />
             <View style={styles.info}>
-                <Text>{this.props.result.username}</Text>
-                <Text>{this.props.result.total_photos} Photos</Text>
+                <Text style={styles.username}>{this.props.result.username}</Text>
+                <Text style={styles.photoCount}>{this.props.result.total_photos} Photos</Text>
             </View>
         </TouchableOpacity>
     }
@@ -37,9 +37,19 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'row',
-        width: Dimensions.get('screen').width / 2
     },
     info: {
-
+        justifyContent: 'center',
+        marginLeft: 30,
+    },
+    username: {
+        fontSize: 20
+    },
+    photoCount: {
+        fontSize: 15
+    },
+    image: {
+        height: 100,
+        width: 100
     }
 })
